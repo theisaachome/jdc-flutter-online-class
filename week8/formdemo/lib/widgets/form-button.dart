@@ -6,9 +6,9 @@ class FormButton extends AppCustomButton {
     @required String label,
     @required VoidCallback onPressed,
   }) : super(
-            color: Colors.tealAccent,
+            color: Colors.teal,
             child: Text(label),
-            textColor: Colors.black,
+            textColor: Colors.white,
             onPressed: onPressed,
             height: 45.0);
 }

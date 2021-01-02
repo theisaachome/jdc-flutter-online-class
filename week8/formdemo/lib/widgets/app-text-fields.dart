@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+typedef Validator = String Function(String);
+
 class AppTextField extends StatelessWidget {
   final String label;
   final String hintText;
@@ -7,10 +9,12 @@ class AppTextField extends StatelessWidget {
   final String prefix;
   final TextInputType textInputType;
   final TextEditingController controller;
+  final Validator validator;
 
   const AppTextField({
     Key key,
     @required this.controller,
+    @required this.validator,
     this.textInputType = TextInputType.text,
     @required this.label,
     @required this.hintText,
@@ -21,7 +25,8 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         controller: controller,
         keyboardType: textInputType,
         decoration: InputDecoration(

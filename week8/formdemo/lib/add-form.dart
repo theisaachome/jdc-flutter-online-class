@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:formdemo/app-format.dart';
+import 'package:formdemo/app-validation.dart';
 import 'package:formdemo/model/contact-model.dart';
 import 'package:formdemo/widgets/form-button.dart';
 import './widgets/app-text-fields.dart';
@@ -10,11 +12,13 @@ class AddForm extends StatefulWidget {
   _AddFormState createState() => _AddFormState();
 }
 
-class _AddFormState extends State<AddForm> {
+class _AddFormState extends State<AddForm> with AppValidation {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final formState = GlobalKey<FormState>();
+  DateTime dob;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +32,7 @@ class _AddFormState extends State<AddForm> {
           child: ListView(
             children: [
               AppTextField(
-                validator: (value) {
-                  if (value.length < 4 || value.isEmpty) {
-                    return "Please Enter Real Name";
-                  }
-                  return null;
-                },
+                validator: validateName,
                 controller: nameController,
                 label: "User Name ",
                 hintText: "Enter Your Name",
@@ -41,12 +40,7 @@ class _AddFormState extends State<AddForm> {
                 prefix: null,
               ),
               AppTextField(
-                validator: (value) {
-                  if (!value.contains("@") || value.isEmpty) {
-                    return "Please Enter Valid Mail";
-                  }
-                  return null;
-                },
+                validator: validateEmail,
                 controller: emailController,
                 label: "User Mail ",
                 hintText: "Enter Your Mail",
@@ -55,12 +49,7 @@ class _AddFormState extends State<AddForm> {
                 textInputType: TextInputType.emailAddress,
               ),
               AppTextField(
-                validator: (value) {
-                  if (value.length < 10 || value.isEmpty) {
-                    return "Please Enter Valid Phone";
-                  }
-                  return null;
-                },
+                validator: validatePhone,
                 controller: phoneController,
                 label: "User Phone",
                 hintText: "Enter Your Phone",
@@ -68,22 +57,59 @@ class _AddFormState extends State<AddForm> {
                 prefix: "+95 ",
                 textInputType: TextInputType.phone,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FormButton(
-                      label: "Cancel",
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
-                  FormButton(label: "Save", onPressed: submit),
-                ],
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.only(top: 16, left: 8, bottom: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey)),
+                child: Row(
+                  children: [
+                    InkWell(
+                      child: Icon(
+                        Icons.today,
+                        color: Colors.grey,
+                      ),
+                      onTap: _pickDOB,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child:
+                          Text(dob != null ? appDateForm(dob) : "Select DOB"),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FormButton(
+                        label: "Cancel",
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
+                    FormButton(label: "Save", onPressed: submit),
+                  ],
+                ),
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  _pickDOB() async {
+    final pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100));
+    setState(() {
+      dob = pickedDate;
+    });
   }
 
   void submit() {
@@ -95,6 +121,7 @@ class _AddFormState extends State<AddForm> {
       userEmail: userEmail,
       userName: username,
       userPhone: userPhone,
+      dob: dob,
     );
 
     if (formState.currentState.validate()) {

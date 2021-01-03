@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:formdemo/add-form.dart';
+import 'package:formdemo/contact-list.dart';
 import 'package:formdemo/model/contact-model.dart';
+import 'package:formdemo/widgets/platform-alert-dialog.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -14,30 +16,40 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final myContacts = <ContactModel>[
     ContactModel(
-        id: DateTime.now().toIso8601String(),
-        userName: "Maung Maung",
-        userEmail: "maunngmaung@gmail.com",
-        userPhone: "098989878"),
+      id: DateTime.now().toIso8601String(),
+      userName: "Maung Maung",
+      userEmail: "maunngmaung@gmail.com",
+      userPhone: "098989878",
+      dob: DateTime.now(),
+    ),
     ContactModel(
-        id: DateTime.now().toIso8601String(),
-        userName: "Aung Aung",
-        userEmail: "aunngaung@gmail.com",
-        userPhone: "098989878"),
+      id: DateTime.now().toIso8601String(),
+      userName: "Aung Aung",
+      userEmail: "aunngaung@gmail.com",
+      userPhone: "098989878",
+      dob: DateTime.now(),
+    ),
     ContactModel(
-        id: DateTime.now().toString(),
-        userName: "Hla Hla ",
-        userEmail: "hlahla@gmail.com",
-        userPhone: "098989878"),
+      id: DateTime.now().toString(),
+      userName: "Hla Hla ",
+      userEmail: "hlahla@gmail.com",
+      userPhone: "098989878",
+      dob: DateTime.now(),
+    ),
     ContactModel(
-        id: DateTime.now().toIso8601String(),
-        userName: "Thaw Thaw ",
-        userEmail: "thawthaw@gmail.com",
-        userPhone: "098989878"),
+      id: DateTime.now().toIso8601String(),
+      userName: "Thaw Thaw ",
+      userEmail: "thawthaw@gmail.com",
+      userPhone: "098989878",
+      dob: DateTime.now(),
+    ),
     ContactModel(
-        id: DateTime.now().toIso8601String(),
-        userName: "Maw Maw ",
-        userEmail: "mawmaw@gmail.com",
-        userPhone: "098989878"),
+      id: DateTime.now().toIso8601String(),
+      userName: "Maw Maw ",
+      userEmail: "mawmaw@gmail.com",
+      userPhone: "098989878",
+      dob: DateTime.now(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,6 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
         slivers: [
           SliverAppBar(
             actions: [
+              IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  PlatformAlertDialog(
+                    title: "Waring",
+                    content: "Testing Waring for alert dialog",
+                    defaultAction: "OK",
+                    cancelAction: "Cancel",
+                  ).show(context);
+                },
+              ),
               IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
@@ -59,28 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverList(
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(myContacts[index].userName),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(myContacts[index].userEmail),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(myContacts[index].userPhone),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    thickness: 2,
-                  ),
-                ],
+              return ContactList(
+                myContact: myContacts[index],
+                deleteContact: deleteContact,
               );
             }, childCount: myContacts.length),
           )
@@ -96,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool deleteContact(String id) {
-    myContacts.where((c) => c.id == id);
+    myContacts.removeWhere((c) => c.id == id);
     return true;
   }
 }

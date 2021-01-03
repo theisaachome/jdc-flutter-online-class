@@ -10,5 +10,5 @@ class FormButton extends AppCustomButton {
             child: Text(label),
             textColor: Colors.white,
             onPressed: onPressed,
-            height: 45.0);
+            height: 40.0);
 }

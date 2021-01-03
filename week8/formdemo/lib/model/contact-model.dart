@@ -3,11 +3,13 @@ class ContactModel {
   String userName;
   String userEmail;
   String userPhone;
+  DateTime dob;
   ContactModel({
     this.id,
     this.userName,
     this.userEmail,
     this.userPhone,
+    this.dob,
   });
 }
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inheritedwidgetdemo/home-page.dart';
+import 'package:inheritedwidgetdemo/model/model.dart';
+import 'package:inheritedwidgetdemo/pages/contact/detail.dart';
+import 'package:inheritedwidgetdemo/provider/contact-provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,10 +11,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: MyHomePage(),
+    return ContactProvider(
+      contacts: ContactApi.getContact(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData.dark(),
+        initialRoute: "/",
+        routes: {
+          "/": (c) => MyHomePage(),
+          ContactDetail.routeName: (c) => ContactDetail(),
+        },
+      ),
     );
   }
 }

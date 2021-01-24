@@ -21,6 +21,7 @@ class _StateContainerState extends State<StateContainer> {
 
   increment() {
     setState(() {
+      print("Called Mehtod");
       count++;
     });
   }

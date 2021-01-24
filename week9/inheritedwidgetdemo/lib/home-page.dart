@@ -5,6 +5,7 @@ import 'package:inheritedwidgetdemo/pages/contact/contacts.dart';
 import 'package:inheritedwidgetdemo/pages/counter/counter-page.dart';
 import 'package:inheritedwidgetdemo/pages/note/note-page.dart';
 import 'package:inheritedwidgetdemo/provider/counter-provider.dart';
+import 'package:inheritedwidgetdemo/provider/note-provider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override

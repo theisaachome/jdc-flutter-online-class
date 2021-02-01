@@ -1,3 +1,5 @@
+import 'package:taskapp/src/core/presentation/data/todo-model.dart';
+
 enum AppTab {
   todos,
   stats,
@@ -9,7 +11,15 @@ enum VisibilityFilter {
   showCompleted,
 }
 
-enum ExtranAction {
+enum ExtraAction {
   markAllCompleted,
   clearCompleted,
 }
+
+typedef TodoUpdater = void Function(
+  TodoModel todo, {
+  bool complete,
+  String id,
+  String note,
+  String task,
+});

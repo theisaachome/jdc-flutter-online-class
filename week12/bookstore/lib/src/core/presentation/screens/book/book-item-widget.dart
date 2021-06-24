@@ -2,7 +2,7 @@ import 'package:bookstore/src/core/presentation/app-route/app-routes.dart';
 import 'package:flutter/material.dart';
 
 class BookItem extends StatelessWidget {
-  final int id;
+  final String id;
   final String imageUrl;
   final String author;
   final String description;

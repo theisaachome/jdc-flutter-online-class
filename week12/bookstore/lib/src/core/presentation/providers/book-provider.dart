@@ -14,7 +14,7 @@ class BookProvider extends ChangeNotifier {
   List<BookModel> _list = [
     BookModel(
       author: "John MacWell",
-      id: 1,
+      id: "1",
       description: description,
       longDescription: longDesc,
       price: 19.0,
@@ -24,7 +24,7 @@ class BookProvider extends ChangeNotifier {
     ),
     BookModel(
       author: "James Brown",
-      id: 2,
+      id: "2",
       description: description,
       longDescription: longDesc,
       price: 29.99,
@@ -34,7 +34,7 @@ class BookProvider extends ChangeNotifier {
     ),
     BookModel(
       author: "Herbbert Sabbath",
-      id: 3,
+      id: "3",
       description: description,
       longDescription: longDesc,
       price: 29.99,
@@ -44,7 +44,7 @@ class BookProvider extends ChangeNotifier {
     ),
     BookModel(
       author: "Herbbert Sabbath",
-      id: 4,
+      id: "4",
       description: description,
       longDescription: longDesc,
       price: 29.99,
@@ -54,7 +54,7 @@ class BookProvider extends ChangeNotifier {
     ),
     BookModel(
       author: "O REILLY",
-      id: 5,
+      id: "5",
       description: description,
       longDescription: longDesc,
       price: 29.99,
@@ -64,7 +64,7 @@ class BookProvider extends ChangeNotifier {
     ),
     BookModel(
       author: "Mr Amzon",
-      id: 6,
+      id: "6",
       description: description,
       longDescription: longDesc,
       price: 29.99,
@@ -75,7 +75,7 @@ class BookProvider extends ChangeNotifier {
   ];
 
   List<BookModel> get books => [..._list];
-  BookModel getById(int id) {
+  BookModel getById(String id) {
     return _list.firstWhere((book) => book.id == id);
   }
 }

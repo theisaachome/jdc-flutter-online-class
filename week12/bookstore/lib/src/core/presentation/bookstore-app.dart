@@ -1,6 +1,8 @@
 import 'package:bookstore/src/core/presentation/app-route/app-routes.dart';
 import 'package:bookstore/src/core/presentation/providers/book-provider.dart';
+import 'package:bookstore/src/core/presentation/providers/cart-provider.dart';
 import 'package:bookstore/src/core/presentation/screens/book/book-detail-screen.dart';
+import 'package:bookstore/src/core/presentation/screens/cart/shopping-cart-screen.dart';
 import 'package:bookstore/src/core/presentation/screens/home-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,7 @@ class BookStoreApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (c) => BookProvider()),
+        ChangeNotifierProvider(create: (c) => CartProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -18,7 +21,8 @@ class BookStoreApp extends StatelessWidget {
         theme: ThemeData.dark(),
         routes: {
           AppRoute.home: (context) => HomeScreen(),
-          AppRoute.detail: (context) => BookDetailScreen()
+          AppRoute.detail: (context) => BookDetailScreen(),
+          AppRoute.cart: (c) => ShoppingCartScreen(),
         },
       ),
     );

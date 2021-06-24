@@ -1,13 +1,14 @@
 import 'package:bookstore/src/core/presentation/common/style/app-text-theme.dart';
 import 'package:bookstore/src/core/presentation/common/widgets/action-button.dart';
 import 'package:bookstore/src/core/presentation/providers/book-provider.dart';
+import 'package:bookstore/src/core/presentation/providers/cart-provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _bookId = ModalRoute.of(context).settings.arguments as int;
+    final _bookId = ModalRoute.of(context).settings.arguments as String;
     final _loadedBook = Provider.of<BookProvider>(context).getById(_bookId);
     print(_bookId);
     return Scaffold(
@@ -63,10 +64,17 @@ class BookDetailScreen extends StatelessWidget {
                         label: "Add To WishList",
                         onPressed: () {},
                       ),
-                      ActionButton(
-                          label: "Add To Cart",
-                          icon: Icons.add_shopping_cart,
-                          onPressed: () {}),
+                      Consumer<CartProvider>(
+                        builder: (context, cartProvider, _) {
+                          return ActionButton(
+                              label: "Add To Cart",
+                              icon: Icons.add_shopping_cart,
+                              onPressed: () {
+                                cartProvider.addItem(_bookId, _loadedBook.title,
+                                    _loadedBook.price);
+                              });
+                        },
+                      ),
                     ],
                   ),
                   SizedBox(
